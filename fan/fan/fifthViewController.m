@@ -7,7 +7,7 @@
 //
 
 #import "fifthViewController.h"
-
+#import <AudioToolbox/AudioToolbox.h>
 @interface fifthViewController ()<UIPickerViewDataSource,UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UILabel *label;
@@ -24,6 +24,10 @@
     [self loadImages];
     
     _hardLevel = 2;
+    
+    _label.text=@"";
+    
+    
 }
 
 - (IBAction)buttonClick:(UIButton *)sender {
@@ -54,12 +58,19 @@
             compareRow = selectedRow;
         }
         
+        if (numOfContinous >= _hardLevel) {
+            isWin = YES;
+        }
         
     }
-    if (numOfContinous >= _hardLevel) {
-        isWin = YES;
-    }
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"crunch" ofType:@"wav"];
+    [self playSound:path];
     
+    if (isWin) {
+        _label.text = @"胜利了";
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"win" ofType:@"wav"];
+        [self playSound:path];
+    }
 }
 
 - (IBAction)segmentedControl:(UISegmentedControl *)sender {
@@ -72,6 +83,15 @@
     _images = @[@"apple",@"bar",@"cherry",@"crown",@"lemon",@"seven"];
 }
 
+-(void)playSound:(NSString *)soundPath
+{
+    SystemSoundID soundID;
+    CFURLRef ref =(__bridge CFURLRef)[NSURL fileURLWithPath:soundPath];
+    
+    AudioServicesCreateSystemSoundID(ref, &soundID);
+    
+    AudioServicesPlaySystemSound(soundID);
+}
 #pragma mark-UIPickerViewDataSource
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {

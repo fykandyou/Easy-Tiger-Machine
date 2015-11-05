@@ -156,6 +156,10 @@
                             </segmentedControl>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frn-bB-vso">
                                 <rect key="frame" x="0.0" y="95" width="375" height="162"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="43l-qs-fYV" id="cJY-BW-NGU"/>
+                                    <outlet property="delegate" destination="43l-qs-fYV" id="d0v-V2-0FI"/>
+                                </connections>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSd-fC-Fgy">
                                 <rect key="frame" x="147" y="491" width="80" height="25"/>
